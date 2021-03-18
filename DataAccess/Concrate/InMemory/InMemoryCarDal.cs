@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.InMemory.InMemory
 {
-    class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal : ICarDal
     {
         List<Car> _cars;
         public InMemoryCarDal()
