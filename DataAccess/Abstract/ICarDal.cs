@@ -1,18 +1,12 @@
-﻿using Entities.Concrate;
-using System;
+﻿using Core.DataAccess;
+using Entities.Concrate;
+using Entities.DTOs;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDal
+    public interface ICarDal : IEntityRepository<Car>
     {
-        List<Car> GetAll();
-        List<Car> GetById(int brandId);
-        void Add(Car car);
-        void Delete(Car car);
-        void Update(Car car);
-
-
+        List<CarDetailDto> GetCarDetails();
     }
 }
