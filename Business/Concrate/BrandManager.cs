@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using System;
@@ -9,33 +11,39 @@ namespace Business.Concrate
 {
     public class BrandManager : IBrandService
     {
-        private IBrandDal _brandrDal;
+        IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {
-            _brandrDal = brandDal;
-        }
-        public void Add(Brand brand)
-        {
-            _brandrDal.Add(brand);
-        }
-        public void Update(Brand brand)
-        {
-            _brandrDal.Update(brand);
+            _brandDal = brandDal;
         }
 
-        public void Delete(Brand brand)
+        public IResult Add(Brand T)
         {
-            _brandrDal.Delete(brand);
+            _brandDal.Add(T);
+            return new SuccessResult(Messages.SuccessAdded);
         }
 
-        public List<Brand> GetAll()
+        public IResult Delete(Brand T)
         {
-            return _brandrDal.GetAll();
+            _brandDal.Delete(T);
+            return new SuccessResult(Messages.SuccessDeleted);
         }
-        public List<Brand> GetCarsByBrandId(int id)
+
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandrDal.GetAll(p => p.BrandId == id);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+        }
+
+        public IDataResult<Brand> GetById(int id)
+        {
+            return new SuccessDataResult<Brand>(_brandDal.Get(p => p.BrandId == id));
+        }
+
+        public IResult Update(Brand T)
+        {
+            _brandDal.Update(T);
+            return new SuccessResult(Messages.SuccessUpdated);
         }
     }
 }

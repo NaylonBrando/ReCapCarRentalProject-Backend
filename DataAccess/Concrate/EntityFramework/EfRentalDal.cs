@@ -14,6 +14,5 @@ namespace DataAccess.Concrate.EntityFramework
         {
             throw new NotImplementedException();
         }
-
     }
 }

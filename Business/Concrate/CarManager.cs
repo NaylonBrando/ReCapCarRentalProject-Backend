@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -16,15 +19,11 @@ namespace Business.Concrate
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult("Başarıyla Eklendi");
-                
-            }
-            return new ErrorResult("Eklenemedi");
+            _carDal.Add(car);
+            return new SuccessResult(Messages.SuccessAdded);
         }
         public IResult Update(Car car)
         {
@@ -53,11 +52,6 @@ namespace Business.Concrate
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
-        {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
-        }
-
         public IDataResult<List<Car>>  GetCarsByBrandId(int id)
         {
             //Filtreleme işlemi burada gerçekleştiriliyor
@@ -72,6 +66,11 @@ namespace Business.Concrate
         public IDataResult<Car> GetById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllCarWithDetails()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
     }
 }

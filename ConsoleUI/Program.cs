@@ -13,15 +13,24 @@ namespace ConsoleUI
             Console.WriteLine("--------------------------------");
             //ColorManagerTestAllCRUDOperations(); //Çalıştı 2.05.2021
             Console.WriteLine("--------------------------------");
+            Console.WriteLine("--------------------------------");
             //CarTest3AddCar(); //Çalıştı 2.05.2021
-            Console.WriteLine("--------------------------------");
-            //CarTest1();
-            Console.WriteLine("--------------------------------");
-            //CarTest2();
+            //GetAllCarTest1();
+            //AllCarDetailsTest1();
             Console.WriteLine("--------------------------------");
             //RentTest1();
             //ReturnTest();
 
+        }
+
+        private static void AllCarDetailsTest1()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            var result2 = carManager.GetAllCarWithDetails();
+            foreach (var item in result2.Data)
+            {
+                Console.WriteLine(item.CarName + " " + item.BrandName + " " + item.ColorName + " " + item.DailyPrice);
+            }
         }
 
         private static void ReturnTest()
@@ -44,10 +53,10 @@ namespace ConsoleUI
             colorManager1.Add(new Color { ColorName = "Requizm" });
             colorManager1.Update(new Color { ColorId = 7, ColorName = "Fenivia" });
             colorManager1.Delete(new Color { ColorId=7});
-            foreach (var item in colorManager1.GetAll())
-            {
-                Console.WriteLine(item.ColorId + " " + item.ColorName);
-            }
+            //foreach (var item in colorManager1.GetAll())
+            //{
+            //    Console.WriteLine(item.ColorId + " " + item.ColorName);
+            //}
         }
 
         private static void CarTest3AddCar()
@@ -56,16 +65,7 @@ namespace ConsoleUI
             carManager3.Add(new Car { BrandId = 1, CarName = "Arebe", ColorId = 2, DailyPrice = 11000, ModelYear = 1337, Description = "Test" });
         }
 
-        //private static void CarTest2()
-        //{
-        //    CarManager carManager2 = new CarManager(new EfCarDal());
-        //    foreach (var item in carManager2.GetCarDetails())
-        //    {
-        //        Console.WriteLine("{0} {1} {2}", item.ColorName, item.BrandName, item.CarName);
-        //    }
-        //}
-
-        private static void CarTest1()
+        private static void GetAllCarTest1()
         {
             CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetAll();

@@ -23,7 +23,7 @@ namespace Business.Concrate
 
         public IDataResult<List<Rental>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
         public IDataResult<List<Rental>> GetRentalById(int id)

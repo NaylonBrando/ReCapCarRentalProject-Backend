@@ -5,12 +5,8 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IColorService
+    public interface IColorService : IServiceBase<Color>
     {
-        List<Color> GetAll();
-        List<Color> GetCarsByColorId(int id);
-        void Add(Color color);
-        void Delete(Color color);
-        void Update(Color color);
+
     }
 }

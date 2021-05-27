@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    interface IRentalService
+    public interface IRentalService
     {
         //Kiralama kodları burada olacak
         //Arabanın müsait olup olmama durumu, renet listesinde müsait olmama durumu

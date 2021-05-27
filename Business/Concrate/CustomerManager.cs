@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -18,7 +19,7 @@ namespace Business.Concrate
 
         public IResult Add(Customer customer)
         {
-            if (customer.CompanyName.Length>2)
+            if (customer.CompanyName.Length > 2)
             {
                 _customerDal.Add(customer);
                 return new SuccessResult("Müşteri başarıyla eklendi!");
@@ -26,29 +27,27 @@ namespace Business.Concrate
             return new ErrorResult("Müşteri ismi 2 karakterden küçük olamaz!");
         }
 
-        public IResult Delete(Customer customer)
+        public IResult Delete(Customer T)
         {
-            throw new NotImplementedException();
+            //iş ve validate kodları
+            _customerDal.Delete(T);
+            return new SuccessResult(Messages.SuccessDeleted);
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
 
         public IDataResult<Customer> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<Customer>(_customerDal.Get(p => p.CustomerId == id));
+        }
+        public IResult Update(Customer T)
+        {
+            _customerDal.Update(T);
+            return new SuccessResult(Messages.SuccessUpdated);
         }
 
-        public IDataResult<Customer> GetByUserId(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IResult Update(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
