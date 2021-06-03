@@ -31,8 +31,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Post(Rental rental)
+        [HttpPost("rent")]
+        public IActionResult Rent(Rental rental)
         {
             var result = _rentalService.Rental(rental);
             if (result.Success == true)
@@ -41,6 +41,18 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("return")]
+        public IActionResult Delete(Rental rental)
+        {
+            var result = _rentalService.Return(rental);
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int productId)
         {

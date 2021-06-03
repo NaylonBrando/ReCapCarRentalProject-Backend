@@ -11,65 +11,62 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarsController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        ICarService _carService;
-      
-        public CarsController(ICarService carService)
+        IUserService _userService;
+
+        public UsersController(IUserService userService)
         {
-            _carService = carService;
+            _userService = userService;
         }
-        [HttpGet("getall")] 
+        [HttpGet("getall")]
         public IActionResult Get()
         {
             //Depency chain
-            var result = _carService.GetAll(); 
+            var result = _userService.GetAll();
             if (result.Success == true)
             {
-                return Ok(result); 
+                return Ok(result);
             }
             return BadRequest(result);
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(User user)
         {
-            var result = _carService.Add(car);
+            var result = _userService.Add(user);
             if (result.Success == true)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(User user)
         {
-            var result = _carService.Delete(car);
+            var result = _userService.Delete(user);
             if (result.Success == true)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-        [HttpPost("Update")]
-        public IActionResult Update(Car car)
+        
+        [HttpPost("update")]
+        public IActionResult Update(User user)
         {
-            var result = _carService.Delete(car);
+            var result = _userService.Update(user);
             if (result.Success == true)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int productId)
         {
-            var result = _carService.GetById(id);
+            var result = _userService.GetById(productId);
             if (result.Success == true)
             {
                 return Ok(result);
@@ -78,3 +75,4 @@ namespace WebAPI.Controllers
         }
     }
 }
+
