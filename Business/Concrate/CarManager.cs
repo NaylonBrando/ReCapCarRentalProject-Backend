@@ -25,6 +25,7 @@ namespace Business.Concrate
             _carDal.Add(car);
             return new SuccessResult(Messages.SuccessAdded);
         }
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)
@@ -35,7 +36,7 @@ namespace Business.Concrate
             }
             return new ErrorResult("Düzenlenemedi!");
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Delete(Car car)
         {
             if (car.DailyPrice > 0)
@@ -73,4 +74,8 @@ namespace Business.Concrate
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
     }
+
+    //Rules
+
+
 }

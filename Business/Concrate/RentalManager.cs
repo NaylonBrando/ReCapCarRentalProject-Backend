@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -36,6 +38,7 @@ namespace Business.Concrate
             throw new NotImplementedException();
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Rental(Rental rental)
         {
             //Şart blokları
@@ -49,7 +52,7 @@ namespace Business.Concrate
                 return new ErrorResult(Messages.CarİsNull);
                 
             }
-            if ((caravaiblecontrol.Available == false))
+            if (caravaiblecontrol.Available == false)
             {
                 return new ErrorResult(Messages.CarİsUnavaible);
             }
@@ -67,7 +70,7 @@ namespace Business.Concrate
 
 
         }
-
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Return(Rental rental)
         {
             //Bu tablo bir nevi log olarak tutulacak

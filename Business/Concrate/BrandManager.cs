@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -18,15 +20,24 @@ namespace Business.Concrate
             _brandDal = brandDal;
         }
 
-        public IResult Add(Brand T)
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Add(Brand brand)
         {
-            _brandDal.Add(T);
+            _brandDal.Add(brand);
             return new SuccessResult(Messages.SuccessAdded);
         }
 
-        public IResult Delete(Brand T)
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Update(Brand brand)
         {
-            _brandDal.Delete(T);
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.SuccessAdded);
+        }
+
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
             return new SuccessResult(Messages.SuccessDeleted);
         }
 
@@ -38,12 +49,6 @@ namespace Business.Concrate
         public IDataResult<Brand> GetById(int id)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(p => p.BrandId == id));
-        }
-
-        public IResult Update(Brand T)
-        {
-            _brandDal.Update(T);
-            return new SuccessResult(Messages.SuccessUpdated);
         }
     }
 }

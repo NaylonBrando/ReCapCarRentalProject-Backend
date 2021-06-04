@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -17,6 +19,7 @@ namespace Business.Concrate
             _customerDal = customerDal;
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             if (customer.CompanyName.Length > 2)
@@ -27,6 +30,7 @@ namespace Business.Concrate
             return new ErrorResult("Müşteri ismi 2 karakterden küçük olamaz!");
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Delete(Customer T)
         {
             //iş ve validate kodları
@@ -43,9 +47,11 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(p => p.CustomerId == id));
         }
-        public IResult Update(Customer T)
+
+        [ValidationAspect(typeof(CustomerValidator))]
+        public IResult Update(Customer customer)
         {
-            _customerDal.Update(T);
+            _customerDal.Update(customer);
             return new SuccessResult(Messages.SuccessUpdated);
         }
 

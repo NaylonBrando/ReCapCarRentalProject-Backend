@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -11,17 +13,19 @@ namespace Business.Concrate
 {
     class UserManager : IUserService
     {
-        IUserDal _userDal;
+        private IUserDal _userDal;
         public UserManager(IUserDal userDal)
         {
             userDal = _userDal;
         }
+
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             _userDal.Add(user);
             return new SuccessResult("Kullanıcı başarıyla kaydedildi!");
         }
-
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
@@ -38,9 +42,11 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<User>(_userDal.Get(p => p.UserId == id));
         }
-        public IResult Update(User T)
+
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult Update(User user)
         {
-            _userDal.Update(T);
+            _userDal.Update(user);
             return new SuccessResult(Messages.SuccessUpdated);
         }
     }
