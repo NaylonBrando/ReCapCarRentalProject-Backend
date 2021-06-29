@@ -12,7 +12,6 @@ namespace Business.Constants
         public static string SuccessAdded = "Basariyla eklendi";
         public static string SuccessDeleted = "Basariyla silindi";
         public static string SuccessUpdated = "Basariyla güncellendi";
-
-
+        public static string CarImageAdded = "Araba resmi yüklendi";
     }
 }

@@ -75,7 +75,4 @@ namespace Business.Concrate
         }
     }
 
-    //Rules
-
-
 }
