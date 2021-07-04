@@ -2,7 +2,9 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
+using Core.Entities.Concrate;
 using Core.Ultilities.Results;
+using Core.Ultilities.Secuirty.JWT;
 using DataAccess.Abstract;
 using Entities.Concrate;
 using System;
@@ -11,43 +13,27 @@ using System.Text;
 
 namespace Business.Concrate
 {
-    class UserManager : IUserService
+    public class UserManager : IUserService
     {
-        private IUserDal _userDal;
+        IUserDal _userDal;
+
         public UserManager(IUserDal userDal)
         {
-            userDal = _userDal;
+            _userDal = userDal;
+        }
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
         }
 
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Add(User user)
+        public void Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult("Kullanıcı başarıyla kaydedildi!");
-        }
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Delete(User user)
-        {
-            _userDal.Delete(user);
-            return new SuccessResult("Kullanıcı Başarıyla silindi!");
         }
 
-        public IDataResult<List<User>> GetAll()
+        public User GetByMail(string email)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll());
-
-        }
-
-        public IDataResult<User> GetById(int id)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(p => p.UserId == id));
-        }
-
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User user)
-        {
-            _userDal.Update(user);
-            return new SuccessResult(Messages.SuccessUpdated);
+            return _userDal.Get(u => u.Email == email);
         }
     }
 }
