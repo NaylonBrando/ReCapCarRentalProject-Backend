@@ -9,6 +9,7 @@ namespace Entities.Concrate
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BrandId { get; set; }
+
         public string BrandName { get; set; }
     }
 }

@@ -5,9 +5,6 @@ using Core.Ultilities.Results;
 using Core.Ultilities.Secuirty;
 using Core.Ultilities.Secuirty.JWT;
 using Entities.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrate
 {
@@ -54,6 +51,7 @@ namespace Business.Concrate
 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
+
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email) != null)
@@ -69,7 +67,5 @@ namespace Business.Concrate
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
-
-
     }
 }

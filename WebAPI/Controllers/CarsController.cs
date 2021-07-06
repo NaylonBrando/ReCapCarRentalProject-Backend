@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrate;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -13,22 +8,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        ICarService _carService;
-      
+        private ICarService _carService;
+
         public CarsController(ICarService carService)
         {
             _carService = carService;
-        }
-        [HttpGet("getall")] 
-        public IActionResult Get()
-        {
-            //Depency chain
-            var result = _carService.GetAll(); 
-            if (result.Success == true)
-            {
-                return Ok(result); 
-            }
-            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -64,7 +48,28 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-
+        [HttpGet("getall")]
+        public IActionResult Get()
+        {
+            //Depency chain
+            var result = _carService.GetAll();
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getallwithdetails")]
+        public IActionResult GetAllWithDetails()
+        {
+            //Depency chain
+            var result = _carService.GetAllCarWithDetails();
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)

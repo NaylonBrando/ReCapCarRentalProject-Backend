@@ -1,14 +1,13 @@
 ﻿using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrate;
 using DataAccess.Abstract;
-using Entities.Concrate;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+
 namespace DataAccess.Concrate.EntityFramework
 {
-    public class EfUserDal: EfRepositoryBase<User, ReCapProjectDbContext>, IUserDal
+    public class EfUserDal : EfRepositoryBase<User, ReCapProjectDbContext>, IUserDal
     {
         public List<OperationClaim> GetClaims(User user)
         {
@@ -20,7 +19,6 @@ namespace DataAccess.Concrate.EntityFramework
                              where userOperationClaim.UserId == user.Id
                              select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };//Bu sekil return
                 return result.ToList();
-
             }
         }
 

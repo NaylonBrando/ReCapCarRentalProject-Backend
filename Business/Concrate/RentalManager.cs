@@ -8,19 +8,18 @@ using Entities.Concrate;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrate
 {
     public class RentalManager : IRentalService
     {
         private IRentalDal _rentalDal;
-        private ICarDal _carDal;
+        private ICarService _carService;
 
-        public RentalManager(IRentalDal rentalDal, ICarDal carDal)
+        public RentalManager(IRentalDal rentalDal, ICarService carService)
         {
             _rentalDal = rentalDal;
-            _carDal = carDal;
+            _carService = carService;
         }
 
         public IDataResult<List<Rental>> GetAll()
@@ -33,31 +32,26 @@ namespace Business.Concrate
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<CarRentalDetailDto>> GetRentalDetails()
+        public IDataResult<List<CarRentalDetailDto>> GetAllRentalsWithDetails()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalDal.GetCarRentalDetails());
         }
 
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Rental(Rental rental)
         {
-            //Şart blokları
 
-            //araba var mı kontrol
-            //araba durum kontrol
-            //belki sonradan kiralanan araba bilgilerini getirebilirim
-            var caravaiblecontrol = _carDal.Get(c => c.CarId == rental.CarId);
+            var caravaiblecontrol = _carService.GetById(rental.CarId);
             if (caravaiblecontrol == null)
             {
                 return new ErrorResult(Messages.CarİsNull);
-                
             }
-            if (caravaiblecontrol.Available == false)
+            if (caravaiblecontrol.Data.Available == false)
             {
                 return new ErrorResult(Messages.CarİsUnavaible);
             }
-            caravaiblecontrol.Available = false;
-            _carDal.Update(caravaiblecontrol);
+            caravaiblecontrol.Data.Available = false;
+            _carService.Update(caravaiblecontrol.Data);
             rental.ReturnDate = default;
 
             DateTime myDate = DateTime.Parse(rental.RentDate);
@@ -66,25 +60,23 @@ namespace Business.Concrate
                 rental.RentDate = DateTime.Now.ToString();
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.SuccessfullyLeased);
-
-
-
         }
+
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Return(Rental rental)
         {
             //Bu tablo bir nevi log olarak tutulacak
             //Kayıtlar return edilince güncellenecek
             var rentalControl = _rentalDal.Get(r => r.Rental_Id == rental.Rental_Id);
-            if (rentalControl==null)
+            if (rentalControl == null)
             {
                 return new ErrorResult("Böyle bir kiralama kaydı yok!");
             }
-            rentalControl.ReturnDate = rental.ReturnDate;
-            
-            Car updateofCarAvaible = _carDal.Get(c => c.CarId == rental.CarId);
-            updateofCarAvaible.Available = true;
-            _carDal.Update(updateofCarAvaible);
+            rentalControl.ReturnDate = DateTime.Now.ToString();
+
+            var updateofCarAvaible = _carService.GetById(rental.CarId);
+            updateofCarAvaible.Data.Available = true;
+            _carService.Update(updateofCarAvaible.Data);
             _rentalDal.Update(rentalControl);
 
             return new SuccessResult("Araç iade edildi!");
@@ -92,7 +84,14 @@ namespace Business.Concrate
 
         public IResult UpdateRental(Rental rental)
         {
-            throw new NotImplementedException();
+            var rentalControl = _rentalDal.Get(r => r.Rental_Id == rental.Rental_Id);
+            if (rentalControl == null)
+            {
+                return new ErrorResult("Böyle bir kiralama kaydı yok!");
+            }
+            rentalControl.ReturnDate = rental.ReturnDate;
+            _rentalDal.Update(rentalControl);
+            return new SuccessResult("Arac iade tarihiniz " + rentalControl.ReturnDate + " tarihine güncelledi");
         }
     }
 }

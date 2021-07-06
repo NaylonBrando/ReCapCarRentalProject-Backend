@@ -10,8 +10,6 @@ namespace Core.Ultilities.Interceptors
 
         public virtual void Intercept(IInvocation invocation)
         {
-
         }
     }
-
 }

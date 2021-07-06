@@ -5,15 +5,13 @@ using Core.Aspects.Autofac;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrate
 {
     public class BrandManager : IBrandService
     {
-        IBrandDal _brandDal;
+        private IBrandDal _brandDal;
 
         public BrandManager(IBrandDal brandDal)
         {

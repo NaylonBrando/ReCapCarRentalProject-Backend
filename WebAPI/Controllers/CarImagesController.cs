@@ -1,13 +1,8 @@
 ﻿using Business.Abstract;
 using Entities.Concrate;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -15,18 +10,16 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarImagesController : ControllerBase
     {
-        ICarImageService _carImageService;
+        private ICarImageService _carImageService;
 
         public CarImagesController(ICarImageService carImageService)
         {
             _carImageService = carImageService;
         }
 
-
         [HttpPost("add")]
         public IActionResult Add([FromForm] IFormFile file, [FromForm] string carImageJsonString)
         {
-
             CarImage carImage = JsonConvert.DeserializeObject<CarImage>(carImageJsonString);
             var result = _carImageService.Add(file, carImage);
             if (result.Success)
@@ -34,13 +27,11 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
 
         [HttpPost("delete")]
         public IActionResult Delete([FromForm] int carImageId)
         {
-
             var deleteCarImageByCarId = _carImageService.Get(carImageId).Data;
             var result = _carImageService.Delete(deleteCarImageByCarId);
 
@@ -52,7 +43,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-
         public IActionResult Update([FromForm] IFormFile file, [FromForm] string carImageJsonString)
         {
             CarImage carImage = JsonConvert.DeserializeObject<CarImage>(carImageJsonString);
@@ -62,14 +52,11 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
-
 
         //[HttpGet("getbyid")]
         //public IActionResult GetById(int id)
         //{
-
         //}
     }
 }

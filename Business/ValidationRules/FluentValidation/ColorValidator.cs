@@ -1,16 +1,12 @@
 ﻿using Entities.Concrate;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class ColorValidator: AbstractValidator<Color>
+    public class ColorValidator : AbstractValidator<Color>
     {
         public ColorValidator()
         {
-            RuleFor(p => p.ColorId).NotEmpty();
             RuleFor(p => p.ColorName).NotEmpty();
             RuleFor(p => p.ColorName).MinimumLength(2);
         }

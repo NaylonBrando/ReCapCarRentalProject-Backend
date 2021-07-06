@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Business.Constants
+﻿namespace Business.Constants
 {
     public class Messages
     {
         public static string CarİsNull = "Böyle bir araba yok!";
         public static string CarİsUnavaible = "Araba suan kiralamaya müsait degildir";
-        public static string SuccessfullyLeased  = "Araba basariyla kiralandi ";
+        public static string SuccessfullyLeased = "Araba basariyla kiralandi ";
         public static string SuccessAdded = "Basariyla eklendi";
         public static string SuccessDeleted = "Basariyla silindi";
         public static string SuccessUpdated = "Basariyla güncellendi";
@@ -20,6 +16,5 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Başarıyla giriş yapıldı";
         public static string UserAlreadyExists = "Zaten böyle bir kullanıcı var";
         public static string AccessTokenCreated = "Erisim tokeni olusturuldu";
-
     }
 }

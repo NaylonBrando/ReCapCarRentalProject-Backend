@@ -8,18 +8,15 @@ using Core.Ultilities.Interceptors;
 using Core.Ultilities.Secuirty.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrate.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.DepencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {
         //Apinin istediği managerlar ve servisler
+        //instance isteyen siniflarin karsiligini aldiği metod
         protected override void Load(ContainerBuilder builder)
         {
-            //Ne ne istiyorsa karsiligini aldiği metod
             builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
 
@@ -54,6 +51,5 @@ namespace Business.DepencyResolvers.Autofac
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
         }
-
     }
 }

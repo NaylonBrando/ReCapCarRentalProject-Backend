@@ -1,9 +1,7 @@
 ﻿using Core.Ultilities.Results;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Core.Ultilities.Helpers.FileHelper
 {
@@ -31,7 +29,6 @@ namespace Core.Ultilities.Helpers.FileHelper
             CheckDirectoryExists(_currentDirectory + _folderName);
             CreateFile(_currentDirectory + _folderName + randomName + type, file);
             return new SuccessResult((_folderName + randomName + type).Replace("\\", "/"));
-
         }
 
         public IResult Update(IFormFile file, string imagePath)
@@ -105,6 +102,5 @@ namespace Core.Ultilities.Helpers.FileHelper
             }
             return new ErrorResult("No File.");
         }
-
     }
 }

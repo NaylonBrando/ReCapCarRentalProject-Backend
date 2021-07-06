@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrate;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -13,12 +8,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ColorsController : ControllerBase
     {
-        IColorService _colorService;
+        private IColorService _colorService;
 
         public ColorsController(IColorService colorService)
         {
             _colorService = colorService;
         }
+
         [HttpGet("getall")]
         public IActionResult Get()
         {
@@ -76,4 +72,3 @@ namespace WebAPI.Controllers
         }
     }
 }
-

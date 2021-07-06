@@ -9,15 +9,14 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Business.Concrate
 {
-    public class CarImageManager: ICarImageService
+    public class CarImageManager : ICarImageService
     {
-        ICarImageDal _carImageDal;
-        ICarService _carService;
-        IFileHelper _fileHelper;
+        private ICarImageDal _carImageDal;
+        private ICarService _carService;
+        private IFileHelper _fileHelper;
 
         public CarImageManager(ICarImageDal carImageDal, ICarService carService, IFileHelper fileHelper)
         {
@@ -34,7 +33,7 @@ namespace Business.Concrate
                 return new ErrorResult(Messages.CarİsNull);
             }
             var countCarImage = _carImageDal.GetAll(p => p.CarId == carImage.CarId).Count;
-            
+
             if (countCarImage >= 5)
             {
                 return new ErrorResult("Araba resmi 5'ten fazla!");
@@ -62,6 +61,7 @@ namespace Business.Concrate
             _carImageDal.Delete(carImage);
             return new SuccessResult("Image was deleted successfully");
         }
+
         public IResult Update(IFormFile file, CarImage carImage)
         {
             var isImage = _carImageDal.Get(c => c.CarId == carImage.CarId);
@@ -85,10 +85,8 @@ namespace Business.Concrate
             //var carImage = _carImageDal.Get(c => c.Id == carImageid);
             //if (carImage)
             //{
-
             //}
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarId == carImageid));
-
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -128,12 +126,10 @@ namespace Business.Concrate
             }
             catch (Exception exception)
             {
-
                 return new ErrorDataResult<List<CarImage>>(exception.Message);
             }
 
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId).ToList());
         }
-
     }
 }

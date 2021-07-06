@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace Core.Ultilities.Secuirty.JWT
 {
@@ -8,5 +7,4 @@ namespace Core.Ultilities.Secuirty.JWT
         public string Token { get; set; }
         public DateTime Expiration { get; set; }
     }
-
 }

@@ -7,7 +7,6 @@ namespace ConsoleUI
 {
     internal class Program
     {
-
         private static void Main(string[] args)
         {
             Console.WriteLine("--------------------------------");
@@ -20,7 +19,6 @@ namespace ConsoleUI
             Console.WriteLine("--------------------------------");
             //RentTest1();
             //ReturnTest();
-
         }
 
         private static void AllCarDetailsTest1()
@@ -35,24 +33,23 @@ namespace ConsoleUI
 
         private static void ReturnTest()
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new EfCarDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
             rentalManager.Return(new Rental { Rental_Id = 1, CarId = 11, ReturnDate = "test" });
         }
 
         private static void RentTest1()
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new EfCarDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
             var result = rentalManager.Rental(new Rental { CarId = 11, CustomerId = 1, RentDate = DateTime.Now.ToString(), ReturnDate = default });
             Console.WriteLine(result.Message);
         }
 
         private static void ColorManagerTestAllCRUDOperations()
         {
-            
             ColorManager colorManager1 = new ColorManager(new EfColorDal());
             colorManager1.Add(new Color { ColorName = "Requizm" });
             colorManager1.Update(new Color { ColorId = 7, ColorName = "Fenivia" });
-            colorManager1.Delete(new Color { ColorId=7});
+            colorManager1.Delete(new Color { ColorId = 7 });
             //foreach (var item in colorManager1.GetAll())
             //{
             //    Console.WriteLine(item.ColorId + " " + item.ColorName);

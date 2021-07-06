@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace Core.Ultilities.Secuirty
 {
@@ -16,7 +14,6 @@ namespace Core.Ultilities.Secuirty
             }
         }
 
-        
         public static bool VerifyPasswordHash
             (string password, byte[] passwordHash, byte[] passwordSalt)
 

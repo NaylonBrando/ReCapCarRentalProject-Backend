@@ -9,6 +9,7 @@ namespace Entities.Concrate
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CarId { get; set; }
+
         public int BrandId { get; set; }
         public int ColorId { get; set; }
         public string CarName { get; set; }
@@ -17,9 +18,5 @@ namespace Entities.Concrate
         public string Description { get; set; }
         public bool Available { get; set; }
 
-        //[ForeignKey("BrandId")]
-        //public Brand BrandId { get; set; }
-        //[ForeignKey("ColorId")]
-        //public Color ColorId { get; set; }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Ultilities.Results
+﻿namespace Core.Ultilities.Results
 {
     //Voidler için
     public interface IResult

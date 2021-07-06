@@ -1,11 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrate;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -13,14 +8,27 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        IRentalService _rentalService;
+        private IRentalService _rentalService;
 
         public RentalsController(IRentalService rentalService)
         {
             _rentalService = rentalService;
         }
+
+        [HttpGet("getallwithdetails")]
+        public IActionResult GetAllWithDetails()
+        {
+            //Depency chain
+            var result = _rentalService.GetAllRentalsWithDetails();
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getall")]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             //Depency chain
             var result = _rentalService.GetAll();
@@ -46,6 +54,16 @@ namespace WebAPI.Controllers
         public IActionResult Delete(Rental rental)
         {
             var result = _rentalService.Return(rental);
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("update")]
+        public IActionResult Update(Rental rental)
+        {
+            var result = _rentalService.UpdateRental(rental);
             if (result.Success == true)
             {
                 return Ok(result);

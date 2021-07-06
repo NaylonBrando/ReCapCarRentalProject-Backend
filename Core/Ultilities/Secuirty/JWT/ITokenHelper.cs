@@ -7,5 +7,4 @@ namespace Core.Ultilities.Secuirty.JWT
     {
         AccessToken CreateToken(User user, List<OperationClaim> operationClaims);
     }
-
 }

@@ -9,6 +9,7 @@ namespace Entities.Concrate
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ColorId { get; set; }
+
         public string ColorName { get; set; }
     }
 }
