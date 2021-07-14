@@ -23,6 +23,7 @@ namespace DataAccess.Concrate.EntityFramework
                                  CarName = ca.CarName,
                                  ColorName = cl.ColorName,
                                  BrandName = b.BrandName,
+                                 ModelYear = ca.ModelYear,
                                  DailyPrice = ca.DailyPrice
                              };
                 return result.ToList();

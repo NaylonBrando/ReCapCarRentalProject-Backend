@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getallwithdetails")]
+        [HttpGet("getallcarswithdetails")]
         public IActionResult GetAllWithDetails()
         {
             //Depency chain
