@@ -28,7 +28,7 @@ namespace Core.Ultilities.Helpers.FileHelper
 
             CheckDirectoryExists(_currentDirectory + _folderName);
             CreateFile(_currentDirectory + _folderName + randomName + type, file);
-            return new SuccessResult((_folderName + randomName + type).Replace("\\", "/"));
+            return new SuccessResult((_currentDirectory +_folderName + randomName + type).Replace("\\", "/"));
         }
 
         public IResult Update(IFormFile file, string imagePath)
@@ -48,15 +48,15 @@ namespace Core.Ultilities.Helpers.FileHelper
                 return new ErrorResult(typeValid.Message);
             }
 
-            DeleteOldFile((_currentDirectory + imagePath).Replace("/", "\\"));
+            DeleteOldFile((imagePath).Replace("/", "\\"));
             CheckDirectoryExists(_currentDirectory + _folderName);
             CreateFile(_currentDirectory + _folderName + randomName + type, file);
-            return new SuccessResult((_folderName + randomName + type).Replace("\\", "/"));
+            return new SuccessResult((_currentDirectory +_folderName + randomName + type).Replace("\\", "/"));
         }
 
         public IResult Delete(string path)
         {
-            DeleteOldFile((_currentDirectory + path).Replace("/", "\\"));
+            DeleteOldFile((path).Replace("/", "\\"));
             return new SuccessResult();
         }
 
