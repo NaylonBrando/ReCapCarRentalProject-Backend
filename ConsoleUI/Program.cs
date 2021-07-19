@@ -21,15 +21,15 @@ namespace ConsoleUI
             //ReturnTest();
         }
 
-        private static void AllCarDetailsTest1()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-            var result2 = carManager.GetAllCarWithDetails();
-            foreach (var item in result2.Data)
-            {
-                Console.WriteLine(item.CarName + " " + item.BrandName + " " + item.ColorName + " " + item.DailyPrice);
-            }
-        }
+        //private static void AllCarDetailsTest1()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
+        //    var result2 = carManager.GetAllCarWithDetails();
+        //    foreach (var item in result2.Data)
+        //    {
+        //        Console.WriteLine(item.CarName + " " + item.BrandName + " " + item.ColorName + " " + item.DailyPrice);
+        //    }
+        //}
 
         private static void ReturnTest()
         {

@@ -67,17 +67,17 @@ namespace Business.Concrate
 
         [PerformanceAspect(5)]
         [CacheAspect] //Parametreler CacheAspect icinde kontrol edildi
-        public IDataResult<List<Car>> GetCarsByBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int id)
         {
             //Filtreleme işlemi burada gerçekleştiriliyor
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == id));
         }
 
         [PerformanceAspect(5)]
         [CacheAspect] ////Parametreler CacheAspect icinde kontrol edildi
-        public IDataResult<List<Car>> GetCarsByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.ColorId == id));
         }
 
         [PerformanceAspect(5)]
@@ -88,8 +88,6 @@ namespace Business.Concrate
             return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == id));
         }
 
-        [PerformanceAspect(5)]
-        [CacheAspect] //Parametreler CacheAspect icinde kontrol edildi
         public IDataResult<List<CarDetailDto>> GetAllCarWithDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
