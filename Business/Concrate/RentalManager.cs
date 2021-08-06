@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac;
+using Core.Aspects.Autofac.Caching;
 using Core.Ultilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrate;
@@ -22,22 +23,27 @@ namespace Business.Concrate
             _carService = carService;
         }
 
+        [CacheAspect]
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<List<Rental>> GetRentalById(int id)
         {
             throw new NotImplementedException();
         }
 
+        [CacheAspect]
         public IDataResult<List<CarRentalDetailDto>> GetAllRentalsWithDetails()
         {
             return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalDal.GetCarRentalDetails());
         }
 
+
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Rental(Rental rental)
         {
 
@@ -63,6 +69,7 @@ namespace Business.Concrate
         }
 
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult Return(Rental rental)
         {
             //Bu tablo bir nevi log olarak tutulacak
@@ -82,6 +89,8 @@ namespace Business.Concrate
             return new SuccessResult("Araç iade edildi!");
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult UpdateRental(Rental rental)
         {
             var rentalControl = _rentalDal.Get(r => r.Rental_Id == rental.Rental_Id);

@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getallcarswithdetails")]
+        [HttpGet("getallwithdetails")]
         public IActionResult GetAllWithDetails()
         {
             //Depency chain
@@ -70,11 +70,22 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getbyidwithdetails")]
+        public IActionResult GetByIdWithDetails(int carId)
+        {
+            //Depency chain
+            var result = _carService.GetByIdWithDetails(carId);
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int carId)
         {
-            var result = _carService.GetById(id);
+            var result = _carService.GetById(carId);
             if (result.Success == true)
             {
                 return Ok(result);

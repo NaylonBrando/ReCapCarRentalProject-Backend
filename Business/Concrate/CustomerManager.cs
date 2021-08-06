@@ -32,7 +32,7 @@ namespace Business.Concrate
             return new ErrorResult("Müşteri ismi 2 karakterden küçük olamaz!");
         }
 
-        [ValidationAspect(typeof(CustomerValidator))]
+        //[ValidationAspect(typeof(CustomerValidator))]
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Delete(Customer T)
         {

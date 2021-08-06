@@ -46,16 +46,12 @@ namespace Business.Concrate
         }
 
         [SecuredOperation("car.add,admin")]
-        [ValidationAspect(typeof(CarValidator))]
+        //[ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Delete(car);
-                return new SuccessResult("Başarıyla Düzenlendi");
-            }
-            return new ErrorResult("Düzenlenemedi!");
+            _carDal.Delete(car);
+            return new SuccessResult("Başarıyla Silindi!");
         }
 
         [PerformanceAspect(5)]
@@ -80,9 +76,10 @@ namespace Business.Concrate
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.ColorId == id));
         }
 
+        //detaysiz tek araba verisi getiren servis
         [PerformanceAspect(5)]
         [CacheAspect] //Parametreler CacheAspect icinde kontrol edildi
-        public IDataResult<Car> GetById(int id)
+        public IDataResult<Car> GetById(int id) 
         {
             //Burayi sonra düzenle direkt SuccessDataResult yolladgimiz icin standart true yolluyor
             return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == id));
@@ -92,5 +89,12 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
+        //detayli tek araba verisi getiren servis
+        public IDataResult<List<CarDetailDto>> GetByIdWithDetails(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetOneCarDetails(p=>p.CarId==id));
+        }
+
+
     }
 }

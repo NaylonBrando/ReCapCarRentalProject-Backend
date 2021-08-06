@@ -73,6 +73,7 @@ namespace WebAPI
             {
                 endpoints.MapControllers();
             });
+            app.UseStaticFiles(); //bu localhostta resim görüntülemek icindir 
         }
     }
 }
