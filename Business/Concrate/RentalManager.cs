@@ -35,10 +35,10 @@ namespace Business.Concrate
             throw new NotImplementedException();
         }
 
-        [CacheAspect]
+        //[CacheAspect]
         public IDataResult<List<CarRentalDetailDto>> GetAllRentalsWithDetails()
         {
-            return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalDal.GetCarRentalDetails());
+            return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalDal.GetAllRentalsWithDetails());
         }
 
 
@@ -52,18 +52,20 @@ namespace Business.Concrate
             {
                 return new ErrorResult(Messages.CarİsNull);
             }
-            if (caravaiblecontrol.Data.Available == false)
-            {
-                return new ErrorResult(Messages.CarİsUnavaible);
-            }
-            caravaiblecontrol.Data.Available = false;
-            _carService.Update(caravaiblecontrol.Data);
-            rental.ReturnDate = default;
 
-            DateTime myDate = DateTime.Parse(rental.RentDate);
+            //simdilik iptal
+            //if (caravaiblecontrol.Data.Available == false)
+            //{
+            //    return new ErrorResult(Messages.CarİsUnavaible);
+            //}
+            //caravaiblecontrol.Data.Available = false;
 
-            if (myDate.Year <= DateTime.Now.Year)
-                rental.RentDate = DateTime.Now.ToString();
+            //_carService.Update(caravaiblecontrol.Data);
+
+            var dateString1 = DateTime.Now.ToString("yyyyMMdd");
+            var dateString2 = DateTime.Now.ToString("yyyy-MM-dd");
+            string degisken = rental.RentDate.ToString("yyyyMMdd");
+
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.SuccessfullyLeased);
         }
@@ -79,10 +81,10 @@ namespace Business.Concrate
             {
                 return new ErrorResult("Böyle bir kiralama kaydı yok!");
             }
-            rentalControl.ReturnDate = DateTime.Now.ToString();
+            rentalControl.ReturnDate = DateTime.Now;
 
             var updateofCarAvaible = _carService.GetById(rental.CarId);
-            updateofCarAvaible.Data.Available = true;
+            //updateofCarAvaible.Data.Available = true;
             _carService.Update(updateofCarAvaible.Data);
             _rentalDal.Update(rentalControl);
 
@@ -101,6 +103,11 @@ namespace Business.Concrate
             rentalControl.ReturnDate = rental.ReturnDate;
             _rentalDal.Update(rentalControl);
             return new SuccessResult("Arac iade tarihiniz " + rentalControl.ReturnDate + " tarihine güncelledi");
+        }
+
+        public IDataResult<Rental> GetLastRentalById(int id)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.GetLastRentalById(id));
         }
     }
 }

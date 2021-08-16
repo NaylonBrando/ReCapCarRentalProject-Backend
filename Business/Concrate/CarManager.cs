@@ -32,7 +32,7 @@ namespace Business.Concrate
             return new SuccessResult(Messages.SuccessAdded);
         }
 
-        [SecuredOperation("car.add,admin")]
+        //[SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
@@ -92,7 +92,7 @@ namespace Business.Concrate
         //detayli tek araba verisi getiren servis
         public IDataResult<List<CarDetailDto>> GetByIdWithDetails(int id)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetOneCarDetails(p=>p.CarId==id));
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetOneCarDetails(p => p.CarId == id));
         }
 
 

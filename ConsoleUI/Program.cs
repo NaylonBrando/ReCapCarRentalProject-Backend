@@ -31,18 +31,18 @@ namespace ConsoleUI
         //    }
         //}
 
-        private static void ReturnTest()
-        {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
-            rentalManager.Return(new Rental { Rental_Id = 1, CarId = 11, ReturnDate = "test" });
-        }
+        //private static void ReturnTest()
+        //{
+        //    RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
+        //    rentalManager.Return(new Rental { Rental_Id = 1, CarId = 11, ReturnDate = "test" });
+        //}
 
-        private static void RentTest1()
-        {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
-            var result = rentalManager.Rental(new Rental { CarId = 11, CustomerId = 1, RentDate = DateTime.Now.ToString(), ReturnDate = default });
-            Console.WriteLine(result.Message);
-        }
+        //private static void RentTest1()
+        //{
+        //    RentalManager rentalManager = new RentalManager(new EfRentalDal(), new CarManager(new EfCarDal()));
+        //    var result = rentalManager.Rental(new Rental { CarId = 11, CustomerId = 1, RentDate = DateTime.Now.ToString(), ReturnDate = default });
+        //    Console.WriteLine(result.Message);
+        //}
 
         private static void ColorManagerTestAllCRUDOperations()
         {

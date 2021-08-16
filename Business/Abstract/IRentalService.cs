@@ -23,6 +23,8 @@ namespace Business.Abstract
 
         IResult Return(Rental rental);
 
+        IDataResult<Rental> GetLastRentalById(int id);
+
         //IResult AddTransactionalTest(Rental rental);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,7 +13,7 @@ namespace Entities.Concrate
 
         public int CarId { get; set; }
         public int CustomerId { get; set; }
-        public string RentDate { get; set; }
-        public string ReturnDate { get; set; }
+        public DateTime RentDate { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 }
