@@ -28,7 +28,7 @@ namespace Business.Concrate
             return new SuccessResult(Messages.SuccessAdded);
         }
 
-        [ValidationAspect(typeof(ColorValidator))]
+        [ValidationAspect(typeof(ColorDeleteValidator))]
         [CacheRemoveAspect("IColorService.Get")]
         public IResult Delete(Color color)
         {

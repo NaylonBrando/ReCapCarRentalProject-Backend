@@ -20,16 +20,16 @@ namespace Core.Aspects.Autofac.Caching
 
         public override void Intercept(IInvocation invocation)
         {
-            var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");//metodun ismini namespaceden itibaren al
-            var arguments = invocation.Arguments.ToList();//parametre var mı
-            var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";//parametre oldugunda calisan metod
-            if (_cacheManager.IsAdd(key)) //cachede böyle bir key var mı
+            var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
+            var arguments = invocation.Arguments.ToList();
+            var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";
+            if (_cacheManager.IsAdd(key))
             {
-                invocation.ReturnValue = _cacheManager.Get(key);//cacheden o metodu getir
+                invocation.ReturnValue = _cacheManager.Get(key);
                 return;
             }
-            invocation.Proceed();//metod devam etsin
-            _cacheManager.Add(key, invocation.ReturnValue, _duration); //o keyi bellege ekle
+            invocation.Proceed();
+            _cacheManager.Add(key, invocation.ReturnValue, _duration);
         }
     }
 }

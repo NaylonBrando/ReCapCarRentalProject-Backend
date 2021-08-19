@@ -35,7 +35,7 @@ namespace Business.Concrate
             throw new NotImplementedException();
         }
 
-        //[CacheAspect]
+        [CacheAspect]
         public IDataResult<List<CarRentalDetailDto>> GetAllRentalsWithDetails()
         {
             return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalDal.GetAllRentalsWithDetails());

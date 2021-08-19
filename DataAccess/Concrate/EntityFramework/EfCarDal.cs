@@ -32,6 +32,7 @@ namespace DataAccess.Concrate.EntityFramework
                                  BrandName = b.BrandName,
                                  ModelYear = ca.ModelYear,
                                  DailyPrice = ca.DailyPrice,
+                                 Description=ca.Description,
                                  FirstCarImage = (from i in context.CarImages
                                                   where (ca.CarId == i.CarId)
                                                   select i.ImagePath).FirstOrDefault()

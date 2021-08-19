@@ -11,11 +11,11 @@ namespace Core.CrossCuttingConcers.Caching.Microsoft
     public class MemoryCacheManager : ICacheManager
     {
         //Adapter Pattern
-        private IMemoryCache _memoryCache;
+        IMemoryCache _memoryCache;
 
         public MemoryCacheManager()
         {
-            _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();// 1:55:00
+            _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();
         }
 
         public void Add(string key, object value, int duration)
@@ -62,6 +62,7 @@ namespace Core.CrossCuttingConcers.Caching.Microsoft
             {
                 _memoryCache.Remove(key);
             }
+            //23:15 DERSTEYİZ
         }
     }
 }

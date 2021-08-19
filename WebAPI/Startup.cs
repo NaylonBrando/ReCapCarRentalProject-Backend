@@ -58,6 +58,8 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureCustomExceptionMiddleware(); //yeni exten ettigimiz middlewareler buradan calisacak
+
             //localhost.. gelen adresten ne get, post istek gelirse ver
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
 

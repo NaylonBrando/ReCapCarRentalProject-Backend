@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update(Brand brand)
         {
-            var result = _brandService.Delete(brand);
+            var result = _brandService.Update(brand);
             if (result.Success == true)
             {
                 return Ok(result);
@@ -61,9 +61,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int brandId)
         {
-            var result = _brandService.GetById(id);
+            var result = _brandService.GetById(brandId);
             if (result.Success == true)
             {
                 return Ok(result);
