@@ -90,9 +90,9 @@ namespace Business.Concrate
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
         //detayli tek araba verisi getiren servis
-        public IDataResult<List<CarDetailDto>> GetByIdWithDetails(int id)
+        public IDataResult<CarDetailDto> GetByIdWithDetails(int id)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetOneCarDetails(p => p.CarId == id));
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetOneCarDetails(id));
         }
 
 

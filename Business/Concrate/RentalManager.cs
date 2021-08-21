@@ -62,9 +62,6 @@ namespace Business.Concrate
 
             //_carService.Update(caravaiblecontrol.Data);
 
-            var dateString1 = DateTime.Now.ToString("yyyyMMdd");
-            var dateString2 = DateTime.Now.ToString("yyyy-MM-dd");
-            string degisken = rental.RentDate.ToString("yyyyMMdd");
 
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.SuccessfullyLeased);

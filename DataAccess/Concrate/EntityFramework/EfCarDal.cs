@@ -43,7 +43,7 @@ namespace DataAccess.Concrate.EntityFramework
 
         }
 
-        public List<CarDetailDto> GetOneCarDetails(Expression<Func<CarDetailDto, bool>> filter)
+        public CarDetailDto GetOneCarDetails(int carId)
         {
             using (ReCapProjectDbContext context = new ReCapProjectDbContext())
             {
@@ -52,6 +52,7 @@ namespace DataAccess.Concrate.EntityFramework
                              on ca.BrandId equals b.BrandId
                              join cl in context.Colors
                              on ca.ColorId equals cl.ColorId
+                             where ca.CarId == carId
                              select new CarDetailDto
                              {
                                  CarId = ca.CarId,
@@ -68,7 +69,7 @@ namespace DataAccess.Concrate.EntityFramework
                                              select new CarImage { CarId = i.CarId, Date = i.Date, Id = i.Id, ImagePath = i.ImagePath }).ToList()
 
                              };
-                return result.Where(filter).ToList();
+                return result.FirstOrDefault();
             }
         }
     }
