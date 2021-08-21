@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
         [HttpPost("rent")]
         public IActionResult Rent(Rental rental)
         {
-            var result = _rentalService.Rental(rental);
+            var result = _rentalService.Rent(rental);
             if (result.Success == true)
             {
                 return Ok(result);

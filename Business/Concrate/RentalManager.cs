@@ -44,7 +44,7 @@ namespace Business.Concrate
 
         [ValidationAspect(typeof(RentalValidator))]
         [CacheRemoveAspect("IRentalService.Get")]
-        public IResult Rental(Rental rental)
+        public IResult Rent(Rental rental)
         {
 
             var caravaiblecontrol = _carService.GetById(rental.CarId);
