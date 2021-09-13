@@ -3,6 +3,7 @@ using Entities.Concrate;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 
 namespace WebAPI.Controllers
 {
@@ -18,9 +19,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm] IFormFile file, [FromForm] string carImageJsonString)
-        {
-            CarImage carImage = JsonConvert.DeserializeObject<CarImage>(carImageJsonString);
+        public IActionResult Add([FromForm] IFormFile file, [FromForm] string carImageIdString)
+            {
+            CarImage carImage = new CarImage() { CarId = Convert.ToInt32(carImageIdString) };
             var result = _carImageService.Add(file, carImage);
             if (result.Success)
             {
@@ -30,11 +31,10 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete([FromForm] int carImageId)
+        public IActionResult Delete([FromForm] string carImageIdString)
         {
-            var deleteCarImageByCarId = _carImageService.Get(carImageId).Data;
-            var result = _carImageService.Delete(deleteCarImageByCarId);
-
+            CarImage carImage = new CarImage() { Id = Convert.ToInt32(carImageIdString) };
+            var result = _carImageService.Delete(carImage);
             if (result.Success)
             {
                 return Ok(result);
@@ -64,9 +64,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        //[HttpGet("getbyid")]
-        //public IActionResult GetById(int id)
-        //{
-        //}
+        [HttpGet("getbycarid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _carImageService.GetImagesByCarId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+
+        }
     }
 }

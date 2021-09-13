@@ -9,7 +9,9 @@ namespace Entities.Concrate
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public int CardId { get; set; }
+        public int? CardId { get; set; }
+        public int CarId { get; set; }
+        public string CardNumber { get; set; }
         public DateTime Date { get; set; }
         public int TotalPayment { get; set; }
         

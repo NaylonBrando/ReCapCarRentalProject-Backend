@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -46,10 +46,51 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
         }
+
+        [HttpPost("update")]
+        public ActionResult Update(UserForUpdateDto userForUpdateDto)
+        {
+            var updateResult = _authService.Update(userForUpdateDto, userForUpdateDto.Password);
+            if (!updateResult.Success)
+            {
+                return BadRequest("Sifre Yanlis");
+
+            }
+            
+            var result = _authService.CreateAccessToken(updateResult.Data);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+
+        }
+
+        [HttpPost("updatepassword")]
+        public ActionResult UpdatePassword(UserForUpdatePasswordDto userForUpdatePasswordDto)
+        {
+            var updateResult = _authService.UpdatePassword(userForUpdatePasswordDto, userForUpdatePasswordDto.OldPassword);
+            if (!updateResult.Success)
+            {
+                return BadRequest("Sifre Yanlis");
+
+            }
+
+            var result = _authService.CreateAccessToken(updateResult.Data);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result.Message);
+
+        }
+
     }
 }

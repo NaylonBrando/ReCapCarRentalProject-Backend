@@ -53,7 +53,7 @@ namespace Core.Ultilities.Helpers.FileHelper
             CreateFile(_currentDirectory + _folderName + randomName + type, file);
             return new SuccessResult((_folderName + randomName + type).Replace("\\", "/"));
         }
-
+        //"/images/a74572c4-5ef9-49d0-b04e-1779e65aef87.jpg"
         public IResult Delete(string path)
         {
             DeleteOldFile((path).Replace("/", "\\"));
@@ -62,9 +62,10 @@ namespace Core.Ultilities.Helpers.FileHelper
 
         public void DeleteOldFile(string directory)
         {
-            if (File.Exists(directory.Replace("/", "\\")))
+            string newDirectory = _currentDirectory + directory;
+            if (File.Exists(newDirectory))
             {
-                File.Delete(directory.Replace("/", "\\"));
+                File.Delete(newDirectory);
             }
         }
 

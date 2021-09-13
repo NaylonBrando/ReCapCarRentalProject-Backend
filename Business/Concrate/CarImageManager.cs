@@ -115,7 +115,7 @@ namespace Business.Concrate
         {
             try
             {
-                string path = @"\images\logo.jpg";
+                string path = @"\images\defaultcarimage.jpg";
                 var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
                 if (!result)
                 {

@@ -6,11 +6,16 @@ namespace Entities.Concrate
 {
     public class Customer : IEntity
     {
+        //Gercek ve tüzel kisiler icin customeri ayirabilirdik(her ikisi icin ayri ayri tablo, entitiy, dataaccess, servis) ama simdilik böyle kalsin
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
 
         public int UserId { get; set; }
         public string CompanyName { get; set; }
+        public string TaxNumber  { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string IdentificationNumber  { get; set; }
     }
 }

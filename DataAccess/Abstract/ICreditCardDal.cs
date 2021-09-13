@@ -5,6 +5,6 @@ namespace DataAccess.Abstract
 {
     public interface ICreditCardDal : IEntityRepository<CreditCard>
     {
-        CreditCard GetByUser(int userId);
+        CreditCard GetByCustomerId(int userId);
     }
 }

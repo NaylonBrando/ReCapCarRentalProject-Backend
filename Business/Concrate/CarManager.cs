@@ -23,7 +23,7 @@ namespace Business.Concrate
         }
 
         //Attributelerin öncelik sıraları aspect icinde verilmistir.
-        //[SecuredOperation("car.add,admin")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
@@ -32,7 +32,7 @@ namespace Business.Concrate
             return new SuccessResult(Messages.SuccessAdded);
         }
 
-        //[SecuredOperation("car.add,admin")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarUpdateValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
@@ -45,7 +45,7 @@ namespace Business.Concrate
             return new ErrorResult("Düzenlenemedi!");
         }
 
-        //[SecuredOperation("car.add,admin")]
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarDeleteValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)

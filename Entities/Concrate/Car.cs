@@ -12,10 +12,14 @@ namespace Entities.Concrate
 
         public int BrandId { get; set; }
         public int ColorId { get; set; }
+        public int GearId { get; set; }
+        public int FuelId { get; set; }
         public string CarName { get; set; }
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+        public int Score { get; set; }
+
         //public bool Available { get; set; } simdilik iptal
 
     }

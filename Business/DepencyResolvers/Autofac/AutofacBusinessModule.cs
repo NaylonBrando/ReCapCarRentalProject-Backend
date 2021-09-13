@@ -15,10 +15,11 @@ namespace Business.DepencyResolvers.Autofac
     {
         //Apinin istediği managerlar ve servisler
         //instance isteyen siniflarin karsiligini aldiği metod
+        //bazilarinin singlelerini sonra kaldir
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CarManager>().As<ICarService>().SingleInstance();
-            builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
+            builder.RegisterType<CarManager>().As<ICarService>().SingleInstance().SingleInstance();
+            builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance().SingleInstance();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
@@ -43,11 +44,25 @@ namespace Business.DepencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
-            builder.RegisterType<CreditCardManager>().As<ICreditCardService>().SingleInstance();
-            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
+            builder.RegisterType<CreditCardManager>().As<ICreditCardService>();
+            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>();
 
-            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
-            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+            builder.RegisterType<PaymentManager>().As<IPaymentService>();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<FindeksScoreManager>().As<IFindeksScoreService>();
+            builder.RegisterType<EfFindeksScoreDal>().As<IFindeksScoreDal>();
+
+            builder.RegisterType<FuelManager>().As<IFuelService>().SingleInstance();
+            builder.RegisterType<EfFuelDal>().As<IFuelDal>().SingleInstance();
+
+            builder.RegisterType<GearManager>().As<IGearService>().SingleInstance();
+            builder.RegisterType<EfGearDal>().As<IGearDal>().SingleInstance();
+
+
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

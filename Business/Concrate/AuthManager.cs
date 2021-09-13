@@ -44,17 +44,77 @@ namespace Business.Concrate
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessfulLogin);
         }
+
+         public IDataResult<User> Update(UserForUpdateDto userForUpdateDto, string password)
+        {
+            var userToCheck = _userService.GetById(userForUpdateDto.Id);
+            if (userToCheck == null)
+            {
+                return new ErrorDataResult<User>(Messages.UserNotFound);
+            }
+
+            if (!HashingHelper.VerifyPasswordHash(userForUpdateDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+            {
+                return new ErrorDataResult<User>(Messages.PasswordError);
+            }
+
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            var user = new User
+            {
+                Id=userToCheck.Data.Id,
+                Email = userForUpdateDto.Email,
+                FirstName = userForUpdateDto.FirstName,
+                LastName = userForUpdateDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userService.Update(user);
+            return new SuccessDataResult<User>(user, Messages.UserUpdated);
+        }
+
+        public IDataResult<User> UpdatePassword(UserForUpdatePasswordDto updatePasswordDto, string password)
+        {
+            var userToCheck = _userService.GetById(updatePasswordDto.Id);
+            if (userToCheck == null)
+            {
+                return new ErrorDataResult<User>(Messages.UserNotFound);
+            }
+
+            if (!HashingHelper.VerifyPasswordHash(updatePasswordDto.OldPassword, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+            {
+                return new ErrorDataResult<User>(Messages.PasswordError);
+            }
+
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(updatePasswordDto.NewPassword, out passwordHash, out passwordSalt);
+            var user = new User
+            {
+                Id = userToCheck.Data.Id,
+                Email = userToCheck.Data.Email,
+                FirstName = userToCheck.Data.FirstName,
+                LastName = userToCheck.Data.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userService.Update(user);
+            return new SuccessDataResult<User>(user, Messages.UserUpdated);
+        }
+
+
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            if (_userService.GetByMail(email).Data != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
@@ -64,7 +124,7 @@ namespace Business.Concrate
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
     }

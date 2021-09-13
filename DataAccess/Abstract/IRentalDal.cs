@@ -11,5 +11,6 @@ namespace DataAccess.Abstract
     {
         List<CarRentalDetailDto> GetAllRentalsWithDetails();
         Rental GetLastRentalById(int id);
+        Rental CheckRentalDate(RentalCheck rental);
     }
 }

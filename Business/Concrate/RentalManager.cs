@@ -106,5 +106,20 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<Rental>(_rentalDal.GetLastRentalById(id));
         }
+
+        public IResult CheckRentalDate(RentalCheck rental)
+        {
+            var result = _rentalDal.CheckRentalDate(rental);
+            if (result==null)
+            {
+                return new SuccessResult("Secilen tarih kiralamaya uygun");
+                
+            }
+            else
+            {
+                return new ErrorResult("Secilen tarihte secili arac kiralanmis");
+            }
+            
+        }
     }
 }

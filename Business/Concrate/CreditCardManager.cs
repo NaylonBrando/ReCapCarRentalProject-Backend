@@ -31,10 +31,12 @@ namespace Business.Concrate
             {
                 Id = addCreditCardDto.Id,
                 CustomerId = addCreditCardDto.CustomerId,
+                FirstName = addCreditCardDto.FirstName,
+                LastName  = addCreditCardDto.LastName,
                 CardNumberHash = cardNumberHash,
                 CardNumberSalt = cardNumberSalt,
-                CvvHash = cvvHash,
-                CvvSalt = cvvSalt,
+                CcvHash = cvvHash,
+                CcvSalt = cvvSalt,
                 ExpirationDateHash = expirationDateHash,
                 ExpirationDateSalt = expirationDateSalt
             };
@@ -66,11 +68,15 @@ namespace Business.Concrate
 
         public IDataResult<CreditCard> CheckTheCreditCard(PaymentDto paymentDto)
         {
-            var getCardToCheck = _creditCardDal.GetByUser(paymentDto.CustomerId);
+            var getCardToCheck = _creditCardDal.GetByCustomerId(paymentDto.CustomerId);
+            if (getCardToCheck==null)
+            {
+                return new ErrorDataResult<CreditCard>("Sistemde böyle bir kart yok");
+            }
             //Burası parametre olarak girilen ödeme bilgisiyle veritabanındaki CreditCards tablosundan cekilen ilgili salt ve hash binary arraylerinin karsilastirildiklari yer
             var cardNumberStatus = HashingHelper.VerifyCardNumberHash(paymentDto.CardNumber, getCardToCheck.CardNumberHash, getCardToCheck.CardNumberSalt);
             var expirationDateStatus = HashingHelper.VerifyExpirationDateHash(paymentDto.ExpirationDate, getCardToCheck.ExpirationDateHash, getCardToCheck.ExpirationDateSalt);
-            var cvvStatus = HashingHelper.VerifyCvvHash(paymentDto.Cvv, getCardToCheck.CvvHash, getCardToCheck.CvvSalt);
+            var cvvStatus = HashingHelper.VerifyCvvHash(paymentDto.Cvv, getCardToCheck.CcvHash, getCardToCheck.CcvSalt);
 
             if (!cardNumberStatus || !expirationDateStatus || !cvvStatus)
             {
@@ -80,9 +86,9 @@ namespace Business.Concrate
             return new SuccessDataResult<CreditCard>(getCardToCheck, "Ödeme işlemi başarılı.");
         }
 
-        public IDataResult<CreditCard> GetByUser(int userId)
+        public IDataResult<CreditCard> GetByCustomerId(int userId)
         {
-            return new SuccessDataResult<CreditCard>(_creditCardDal.GetByUser(userId));
+            return new SuccessDataResult<CreditCard>(_creditCardDal.GetByCustomerId(userId));
         }
     }
 }

@@ -25,6 +25,8 @@ namespace Business.Abstract
 
         IDataResult<Rental> GetLastRentalById(int id);
 
+        IResult CheckRentalDate(RentalCheck rental);
+
         //IResult AddTransactionalTest(Rental rental);
     }
 }

@@ -43,10 +43,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyuserid")]
-        public IActionResult GetByUser(int userId)
+        [HttpGet("getbycustomerid")]
+        public IActionResult GetByCustomerId(int customerId)
         {
-            var result = _creditCardService.GetByUser(userId);
+            var result = _creditCardService.GetByCustomerId(customerId);
             if (result.Success)
             {
                 return Ok(result);
@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(AddCreditCardDto addCreditCardDto)
         {
-            var result = _creditCardService.Add(addCreditCardDto, addCreditCardDto.CardNumber, addCreditCardDto.ExpirationDate, addCreditCardDto.Cvv);
+            var result = _creditCardService.Add(addCreditCardDto, addCreditCardDto.CardNumber, addCreditCardDto.ExpirationDate, addCreditCardDto.Ccv);
             if (result.Success)
             {
                 return Ok(result);

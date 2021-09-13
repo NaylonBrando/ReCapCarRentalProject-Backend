@@ -24,12 +24,8 @@ namespace Business.Concrate
         [CacheRemoveAspect("ICustomerService.Get")]
         public IResult Add(Customer customer)
         {
-            if (customer.CompanyName.Length > 2)
-            {
-                _customerDal.Add(customer);
-                return new SuccessResult("Müşteri başarıyla eklendi!");
-            }
-            return new ErrorResult("Müşteri ismi 2 karakterden küçük olamaz!");
+            _customerDal.Add(customer);
+            return new SuccessResult("Müşteri başarıyla eklendi!");
         }
 
         //[ValidationAspect(typeof(CustomerValidator))]
@@ -59,7 +55,12 @@ namespace Business.Concrate
         [CacheAspect]
         public IDataResult<Customer> GetById(int id)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(p => p.CustomerId == id));
-        }   
+            return new SuccessDataResult<Customer>(_customerDal.Get(p => p.Id == id));
+        }
+
+        public IDataResult<Customer> GetLastCustomerByUserId(int id)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.GetLastCustomerByUserId(p => p.UserId == id));
+        }
     }
 }

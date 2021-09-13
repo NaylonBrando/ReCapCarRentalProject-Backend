@@ -70,5 +70,18 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getlastbyuserid")]
+        public IActionResult GetLastCustomerById(int userId)
+        {
+            var result = _customerService.GetLastCustomerByUserId(userId);
+            if (result.Success == true)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
     }
 }

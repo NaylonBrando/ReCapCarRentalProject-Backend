@@ -1,14 +1,18 @@
 ﻿using Core.Entities.Concrate;
+using Core.Ultilities.Results;
 using System.Collections.Generic;
 
 namespace Business.Abstract
 {
     public interface IUserService
     {
-        List<OperationClaim> GetClaims(User user);
+        IResult Add(User user);
 
-        void Add(User user);
+        IResult Update(User user);
+        IDataResult<List<OperationClaim>> GetClaims(User user);
 
-        User GetByMail(string email);
+        IDataResult<User> GetByMail(string email);
+
+        IDataResult<User> GetById(int id);
     }
 }

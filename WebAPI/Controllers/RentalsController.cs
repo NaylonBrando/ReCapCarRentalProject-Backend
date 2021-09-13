@@ -92,5 +92,18 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("checkrentaldate")]
+        public IActionResult CheckRentalDate(RentalCheck rental)
+        {
+            var result = _rentalService.CheckRentalDate(rental);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest("Bir hata oldu null döndü");
+        }
+
+
     }
 }

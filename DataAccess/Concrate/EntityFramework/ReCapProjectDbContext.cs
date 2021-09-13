@@ -22,5 +22,9 @@ namespace DataAccess.Concrate.EntityFramework
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<FindeksScore> FindeksScores { get; set; }
+        public DbSet<Fuel> FuelTypes { get; set; }
+        public DbSet<Gear> GearTypes { get; set; }
+
     }
 }

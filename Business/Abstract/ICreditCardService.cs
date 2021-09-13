@@ -13,7 +13,7 @@ namespace Business.Abstract
         IResult Update(CreditCard creditCard);
         IResult Delete(CreditCard creditCard);
         IDataResult<CreditCard> CheckTheCreditCard(PaymentDto paymentDto);
-        IDataResult<CreditCard> GetByUser(int userId);
+        IDataResult<CreditCard> GetByCustomerId(int customerId);
     }
 
 }

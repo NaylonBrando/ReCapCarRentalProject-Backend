@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
         [HttpPost("add")]
         public IActionResult Add(Payment payment)
-        {
+         {
             var result = _paymentService.Add(payment);
             if (result.Success)
             {
